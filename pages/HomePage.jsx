@@ -1,6 +1,6 @@
-import { UserPreview } from './UserPreview.jsx'
+import { UserPreview } from '../cmps/UserPreview.jsx'
 
-export function Home() {
+export function HomePage() {
     return (
         <section>
             <h2>Home Sweet Home</h2>
