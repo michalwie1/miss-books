@@ -9,3 +9,19 @@
     color: var(--clr2bg);
   }
 }
+
+.app-header section:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.app-header .app-nav {
+    display: flex;
+    gap: 1em;
+
+
+    >a {
+        cursor: pointer;
+    }
+}
