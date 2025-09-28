@@ -33,6 +33,8 @@ export function BookDetails({ bookId, onBack }) {
         if(currentYear - book.publishedDate < 1) return 'New'
     }
 
+    let priceClass = book.listPrice.amount < 20 ? 'low' : ''
+
     return (
         <section className="book-details">
             <h2>{book.title}</h2>
@@ -41,8 +43,8 @@ export function BookDetails({ bookId, onBack }) {
             <p>{book.description}</p>
             <p>Page Count: {pageCountTxt()}</p>
             <p>Publish Date: {publishedDate()}</p>
-            <p>Book Price: {book.listPrice.amount}</p>
-            {/* <img src={`../assets/img/${vendor}.png`} alt="Book Image" /> */}
+            <p className={`price ${priceClass}`}>Book Price: {book.listPrice.amount}$</p>
+            <img src={book.thumbnail} alt="Book Image" />
             <button onClick={onBack}>Back</button>
         </section>
     )

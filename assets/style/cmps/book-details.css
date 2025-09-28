@@ -1,0 +1,9 @@
+.book-details{
+    color: black;
+    .price{
+        color: red;
+    }
+    .price.low{
+        color: green;
+    }
+}
