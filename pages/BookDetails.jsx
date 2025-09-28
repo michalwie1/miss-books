@@ -20,9 +20,17 @@ export function BookDetails({ bookId, onBack }) {
     if (!book) return <div>Loading Details...</div>
 
     function pageCountTxt(){
-        if (book.pageCount > 500) {return 'Serious Reading'}
-        if (book.pageCount > 200) {return 'Descent Reading'}
-        if (book.pageCount < 100) {return 'Light Reading'}
+        if (book.pageCount > 500) return 'Serious Reading'
+        if (book.pageCount > 200) return 'Descent Reading'
+        if (book.pageCount < 100) return 'Light Reading'
+    }
+
+    function publishedDate(){
+        const today = new Date()
+        const currentYear = today.getFullYear()
+        
+        if(currentYear - book.publishedDate > 10) return 'Vintage'
+        if(currentYear - book.publishedDate < 1) return 'New'
     }
 
     return (
@@ -30,9 +38,10 @@ export function BookDetails({ bookId, onBack }) {
             <h2>{book.title}</h2>
             <h3>{book.subtitle}</h3>
             {/* <p>{book.authors}</p> */}
-            <p>Page Count: {pageCountTxt()}</p>
-            <p>Book Price: {book.listPrice.amount}</p>
             <p>{book.description}</p>
+            <p>Page Count: {pageCountTxt()}</p>
+            <p>Publish Date: {publishedDate()}</p>
+            <p>Book Price: {book.listPrice.amount}</p>
             {/* <img src={`../assets/img/${vendor}.png`} alt="Book Image" /> */}
             <button onClick={onBack}>Back</button>
         </section>
