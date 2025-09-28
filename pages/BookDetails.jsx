@@ -18,12 +18,19 @@ export function BookDetails({ bookId, onBack }) {
     }
 
     if (!book) return <div>Loading Details...</div>
-    // const { title, listPrice } = book
+
+    let pageCountTxt = ''
+    console.log(book)
+    if (book.pageCount > 500) {pageCountTxt = 'Serious Reading'}
+    if (book.pageCount > 200) {pageCountTxt = 'Descent Reading'}
+    if (book.pageCount < 100) {pageCountTxt = 'Light Reading'}
+
     return (
         <section className="book-details">
             <h2>{book.title}</h2>
             <h3>{book.subtitle}</h3>
             {/* <p>{book.authors}</p> */}
+            <p>Page Count: {pageCountTxt}</p>
             <p>Book Price: {book.listPrice.amount}</p>
             <p>{book.description}</p>
             {/* <img src={`../assets/img/${vendor}.png`} alt="Book Image" /> */}
