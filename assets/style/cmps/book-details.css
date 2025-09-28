@@ -6,4 +6,7 @@
     .price.low{
         color: green;
     }
+    .sale{
+        width: 3em;
+    }
 }

@@ -34,11 +34,17 @@ export function BookDetails({ bookId, onBack }) {
     }
 
     let priceClass = book.listPrice.amount < 20 ? 'low' : ''
+    // let onSaleImg = book.listPrice.isOnSale ? '../assets/img/sale.png' : ''
 
     return (
         <section className="book-details">
             <h2>{book.title}</h2>
             <h3>{book.subtitle}</h3>
+
+            {book.listPrice.isOnSale  
+            ? <img className="sale" src="../assets/img/sale.png"></img>
+            : ''}
+            
             {/* <p>{book.authors}</p> */}
             <p>{book.description}</p>
             <p>Page Count: {pageCountTxt()}</p>
