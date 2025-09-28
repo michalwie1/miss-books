@@ -4,7 +4,7 @@ import { BookPreview } from "./BookPreview.jsx";
 const { useState, useEffect } = React
 
 
-export function BookList({ books }) {
+export function BookList({ books, onRemoveBook, onSelectBookId }) {
 // export function BookList({ books, onRemoveBook, onSelectBookId }) {
     return (
         <ul className="book-list container">
@@ -14,7 +14,7 @@ export function BookList({ books }) {
                     {console.log(bookIdx)}
                     <section>
                         {/* <button onClick={ev => onRemoveBook(book.id, ev)}>Remove</button> */}
-                        {/* <button onClick={() => onSelectBookId(book.id)} >Details</button> */}
+                        <button onClick={() => onSelectBookId(book.id)} >Details</button>
                     </section>
                 </li>
             )}

@@ -7,7 +7,8 @@ const { useState, useEffect, Fragment } = React
 export function BookIndex() {
 
     const [books, setBooks] = useState([])
-    console.log(books)
+    const [selectedBookId, setSelectedBookId] = useState(null)
+
     useEffect(() => {
         loadBooks()
     }, [])
@@ -21,14 +22,47 @@ export function BookIndex() {
             .catch(err => console.log('err:', err))
     }
 
+    function onSelectBookId(bookId) {
+        setSelectedBookId(bookId)
+    }
+
+    function onRemoveBook(){}
+
+
     if (!books || !books.length) return <div>Loading...</div>
     return (
         <section>
             <h2>Book Index</h2>
-            <BookList books={books} />
+            {/* <BookList 
+                books={books}
+                onRemoveBook={onRemoveBook}
+                onSelectBookId={onSelectBookId}
+             /> */}
+
+             {console.log(selectedBookId)}
+
+            {selectedBookId
+                ? <BookDetails bookId={selectedBookId} onBack={() => setSelectedBookId(null)} />
+                :
+                
+                    
+                    (
+                    <BookList
+                    books={books}
+                    onRemoveBook={onRemoveBook}
+                    onSelectBookId={onSelectBookId}
+                    />
+                  )  
+                
+            }
+
+
+
             {/* <BookDetails /> */}
-            {/* <BookDetails onBack={() => setSelectedCarId(null)} carId={selectedCarId} /> */}
+            {/* <BookDetails bookId={selectedBookId} onBack={() => setSelectedBookId(null)}  /> */}
             {/* <h3>{books[0].title}</h3> */}
         </section>
     )
 }
+{/* <Fragment>
+                </Fragment> */}
