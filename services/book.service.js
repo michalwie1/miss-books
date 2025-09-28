@@ -2,7 +2,6 @@ import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
 const BOOK_KEY = 'bookDB'
-// var gFilterBy = { title: '', listPrice: 0 }
 _createBooks()
 
 // {
@@ -24,22 +23,24 @@ export const bookService = {
     save,
     getEmptyBook,
     // getNextCarId,
-    // getFilterBy,
-    // setFilterBy
+    getFilterBy,
+    setFilterBy,
+    getDefaultFilter
 }
 
-function query() {
+function query(filterBy = {}) {
     return storageService.query(BOOK_KEY)
-        // .then(books => {
-        //     if (gFilterBy.title) {
-        //         const regex = new RegExp(gFilterBy.title, 'i')
-        //         books = books.filter(book => regex.test(book.vendor))
-        //     }
-        //     if (gFilterBy.listPrice) {
-        //         books = books.filter(book => book.maxSpeed >= gFilterBy.minSpeed)
-        //     }
-        //     return cars
-        // })
+        .then(books => {
+            if (filterBy.title) {
+                console.log(filterBy.title)
+                const regex = new RegExp(filterBy.title, 'i')
+                books = books.filter(book => regex.test(book.title))
+            }
+            if (filterBy.listPrice) {
+                books = books.filter(book => book.listPrice >= filterBy.listPrice)
+            }
+            return books
+        })
 }
 
 function get(bookId) {
@@ -62,15 +63,19 @@ function getEmptyBook(title = '', listPrice = 0) {
     return { id: '', title, listPrice }
 }
 
-// function getFilterBy() {
-//     return { ...gFilterBy }
-// }
+function getFilterBy() {
+    return { ...gFilterBy }
+}
 
-// function setFilterBy(filterBy = {}) {
-//     if (filterBy.title !== undefined) gFilterBy.title = filterBy.title
-//     if (filterBy.listPrice !== undefined) gFilterBy.listPrice = filterBy.listPrice
-//     return gFilterBy
-// }
+function setFilterBy(filterBy = {}) {
+    if (filterBy.title !== undefined) gFilterBy.title = filterBy.title
+    if (filterBy.listPrice !== undefined) gFilterBy.listPrice = filterBy.listPrice
+    return gFilterBy
+}
+
+function getDefaultFilter() {
+    return { title: '', listPrice: '' }
+}
 
 // function getNextBookId(bookId) {
 //     return storageService.query(BOOK_KEY)

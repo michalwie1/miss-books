@@ -1,8 +1,6 @@
 
 export function BookPreview({ book, imgIdx }) {
   
-    console.log(book)
-    console.log(imgIdx++)
     const { title, listPrice } = book
     const bookImg = `../assets/img/${imgIdx++}.jpg`
 

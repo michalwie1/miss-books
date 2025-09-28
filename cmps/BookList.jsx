@@ -11,7 +11,6 @@ export function BookList({ books, onRemoveBook, onSelectBookId }) {
             {books.map((book,bookIdx) =>
                 <li key={book.id}>
                     <BookPreview book={book} imgIdx={bookIdx} />
-                    {console.log(bookIdx)}
                     <section>
                         {/* <button onClick={ev => onRemoveBook(book.id, ev)}>Remove</button> */}
                         <button onClick={() => onSelectBookId(book.id)} >Details</button>
