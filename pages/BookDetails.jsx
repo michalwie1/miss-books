@@ -4,7 +4,6 @@ const { useState, useEffect } = React
 
 export function BookDetails({ bookId, onBack }) {
     const [book, setBook] = useState(null)
-    console.log(bookId)
     
     useEffect(() => {
         loadBook()
@@ -17,19 +16,16 @@ export function BookDetails({ bookId, onBack }) {
                 setBook(book)})
             .catch(err => console.log('err:', err))
     }
-    console.log(book)
 
-    // const bookImg = 
     if (!book) return <div>Loading Details...</div>
-    const { title, listPrice } = book
+    // const { title, listPrice } = book
     return (
         <section className="book-details">
-            <h1>Book Title: {title}</h1>
-            <h1>Book Price: {listPrice}</h1>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Dolorum aliquam quibusdam corrupti? Minus, ad tenetur!
-            </p>
+            <h2>{book.title}</h2>
+            <h3>{book.subtitle}</h3>
+            {/* <p>{book.authors}</p> */}
+            <p>Book Price: {book.listPrice.amount}</p>
+            <p>{book.description}</p>
             {/* <img src={`../assets/img/${vendor}.png`} alt="Book Image" /> */}
             <button onClick={onBack}>Back</button>
         </section>
