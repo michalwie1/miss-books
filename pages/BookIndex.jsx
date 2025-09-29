@@ -25,7 +25,13 @@ export function BookIndex() {
         setSelectedBookId(bookId)
     }
 
-    function onRemoveBook(){}
+    function onRemoveBook(bookId){
+        bookService.remove(bookId)
+            .then(() => {
+                setBooks(books => books.filter(book => book.id !== bookId))
+            })
+            .catch(err => console.log('err:', err))
+    }
 
     function onSetFilterBy(newFilterBy) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...newFilterBy }))
@@ -33,7 +39,7 @@ export function BookIndex() {
 
     if (!books || !books.length) return <div className="loader">Loading...</div>
     return (
-        <section>
+        <section className="book-index main-layout">
             <h2>Books</h2>
 
             {selectedBookId

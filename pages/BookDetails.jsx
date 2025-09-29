@@ -18,7 +18,7 @@ export function BookDetails({ bookId, onBack }) {
             .catch(err => console.log('err:', err))
     }
 
-    if (!book) return <div>Loading Details...</div>
+    if (!book) return <div className="loader">Loading Details...</div>
 
     function pageCountTxt(){
         if (book.pageCount > 500) return 'Serious Reading'

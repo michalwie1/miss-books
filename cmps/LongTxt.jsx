@@ -5,7 +5,7 @@ export function LongTxt({ txt, length = 100 }){
     const [isFullTxt, setIsFullTxt] = useState(false)
 
     function onReadToggle(){
-        setIsFullTxt(!isFullTxt)
+        setIsFullTxt(prevIsFullTxt => !prevIsFullTxt)
     }
 
     if (txt.length <= length) return <div>{txt}</div>
