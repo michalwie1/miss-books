@@ -15,11 +15,11 @@ export function LongTxt({ txt, length = 100 }){
             {isFullTxt
             ? <p>
                 <span>{txt}</span>
-                <a onClick={onReadToggle}>... Read less</a>
+                <a onClick={onReadToggle}>... read less</a>
               </p>
             : <p>
                 <span>{txt.substring(0,length)}</span>
-                <a onClick={onReadToggle}>... Read more</a>
+                <a onClick={onReadToggle}>... read more</a>
              </p>
             }
             

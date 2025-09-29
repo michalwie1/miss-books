@@ -1,0 +1,29 @@
+.book-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3em;
+    justify-content: center;
+
+    li{
+        width: 25%;
+        text-align: center;
+        background-color: var(--clr1bg);
+        padding: 2em;
+        border-radius: 10px;
+        list-style-type: none;
+        
+    }
+
+    li h2{
+        text-transform: uppercase;
+    }
+
+    /* li:not(:first-child):not(:last-child){
+        padding: 5em 1.5em;
+    } */
+
+    li:hover{
+        background-color: var(--clr1bg-dark);
+    }
+
+}

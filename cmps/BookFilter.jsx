@@ -35,7 +35,7 @@ export function BookFilter({ defaultFilter, onSetFilterBy }) {
     const isValid = title && listPrice
 
     return (
-        <section className="book-filter container">
+        <section className="book-filter container main-layout">
             <form onSubmit={onSubmitFilter}>
                 <label htmlFor="title">Title</label>
                 <input onChange={handleChange} value={title} name="title" id="title" type="text" />

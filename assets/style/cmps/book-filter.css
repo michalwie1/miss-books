@@ -1,0 +1,15 @@
+.book-filter{
+    background-color: var(--clr1bg);
+    text-align: center;
+    /* margin: 0 4em; */
+    border-radius: 10px;
+    
+    form{
+        padding: 0 2em;
+
+        input{
+            margin: 0 1em;
+            border-radius: 5px;
+        }
+    }
+}

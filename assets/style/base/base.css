@@ -20,6 +20,10 @@ h6 {
   font-family: 'Edu VIC WA NT Beginner', cursive;
 }
 
+h2{
+  text-align: center;
+}
+
 p {
   margin: 0 0 1em;
 }
@@ -42,4 +46,9 @@ object {
 /* Simple and useful CSS Debugging Technique */
 .debug * {
   outline: 1px solid gold
+}
+
+.loader{
+  text-align: center;
+  margin-top: 2em;
 }

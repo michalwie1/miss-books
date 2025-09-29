@@ -1,12 +1,29 @@
 .book-details{
-    color: black;
+    position: relative;
+    justify-self: center;
+    max-width: 45%;
+    background-color: var(--clr1bg);
+    padding: 2em;
+    border-radius: 10px;
+
+    h2{
+        text-transform: uppercase;
+    }
+
+    h2,h3{
+        text-align: center;
+    }
     .price{
         color: red;
+
     }
     .price.low{
         color: green;
     }
     .sale{
         width: 3em;
+        position: absolute;
+        right: 10px;
+        top: 10px;
     }
 }

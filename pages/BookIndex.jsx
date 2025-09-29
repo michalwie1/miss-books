@@ -31,10 +31,10 @@ export function BookIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...newFilterBy }))
     }
 
-    if (!books || !books.length) return <div>Loading...</div>
+    if (!books || !books.length) return <div className="loader">Loading...</div>
     return (
         <section>
-            <h2>Book Index</h2>
+            <h2>Books</h2>
 
             {selectedBookId
                 ? <BookDetails bookId={selectedBookId} onBack={() => setSelectedBookId(null)} />

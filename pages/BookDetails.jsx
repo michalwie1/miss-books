@@ -37,7 +37,7 @@ export function BookDetails({ bookId, onBack }) {
     // let onSaleImg = book.listPrice.isOnSale ? '../assets/img/sale.png' : ''
 
     return (
-        <section className="book-details">
+        <section className="book-details main-layout">
             <h2>{book.title}</h2>
             <h3>{book.subtitle}</h3>
 
