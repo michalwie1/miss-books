@@ -23,13 +23,12 @@ export function BookDetails({ bookId, onBack }) {
     function pageCountTxt(){
         if (book.pageCount > 500) return 'Serious Reading'
         if (book.pageCount > 200) return 'Descent Reading'
-        if (book.pageCount < 100) return 'Light Reading'
+        return 'Light Reading'
     }
 
     function publishedDate(){
         const today = new Date()
-        const currentYear = today.getFullYear()
-        
+        const currentYear = today.getFullYear()    
         if(currentYear - book.publishedDate > 10) return 'Vintage'
         if(currentYear - book.publishedDate < 1) return 'New'
     }
@@ -42,15 +41,14 @@ export function BookDetails({ bookId, onBack }) {
             <h2>{book.title}</h2>
             <h3>{book.subtitle}</h3>
 
-            {book.listPrice.isOnSale  
-            ? <img className="sale" src="../assets/img/sale.png"></img>
-            : ''}
+            {book.listPrice.isOnSale &&
+             <img className="sale" src="../assets/img/sale.png"></img>}
 
             {/* <p>{book.authors}</p> */}
             <LongTxt txt={book.description} />
             <p>Page Count: {pageCountTxt()}</p>
             <p>Publish Date: {publishedDate()}</p>
-            <p className={`price ${priceClass}`}>Book Price: {book.listPrice.amount}$</p>
+            <p className={`price ${priceClass}`}>Book Price: {book.listPrice.amount} {book.listPrice.currencyCode}</p>
             <img src={book.thumbnail} alt="Book Image" />
             <button onClick={onBack}>Back</button>
         </section>
