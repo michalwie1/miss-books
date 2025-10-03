@@ -10,12 +10,11 @@ import { AppHeader } from "./cmps/AppHeader.jsx"
 import { BookDetails } from "./pages/BookDetails.jsx"
 import { BookEdit } from "./pages/BookEdit.jsx"
 
-// import { UserMsg } from "./cmps/UserMsg.jsx"
+import { UserMsg } from "./cmps/UserMsg.jsx"
 import { NotFound } from "./cmps/NotFound.jsx"
 
 
 export function App() {
-    // const [page, setPage] = useState('home')
 
     return (
         <Router >
@@ -33,6 +32,7 @@ export function App() {
                         <Route path="*" element={<NotFound />} />
                     </Routes>
             </main>
+            <UserMsg />
         </section>
         </Router>
     )
