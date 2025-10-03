@@ -1,4 +1,4 @@
-export function HomePage() {
+export function Home() {
     return (
         <section className="align-center container">
             <h2>Home</h2>

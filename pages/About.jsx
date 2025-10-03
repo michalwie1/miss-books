@@ -1,4 +1,4 @@
-export function AboutUs() {
+export function About() {
     return (
         <section className="align-center container">
             <h2>About Us</h2>
