@@ -5,6 +5,7 @@ import { BookFilter } from "../cmps/BookFilter.jsx"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect, Fragment } = React
+const { Link } = ReactRouterDOM
 
 export function BookIndex() {
 
@@ -22,9 +23,9 @@ export function BookIndex() {
             .catch(err => console.log('err:', err))
     }
 
-    function onSelectBookId(bookId) {
-        setSelectedBookId(bookId)
-    }
+    // function onSelectBookId(bookId) {
+    //     setSelectedBookId(bookId)
+    // }
 
     function onRemoveBook(bookId){
         bookService.remove(bookId)
@@ -51,10 +52,15 @@ export function BookIndex() {
                 ? <BookDetails bookId={selectedBookId} onBack={() => setSelectedBookId(null)} />
                 : <Fragment>
                     <BookFilter onSetFilterBy={onSetFilterBy} defaultFilter={filterBy} />
+
+                    <section className="container">
+                        <button className="edit-link"><Link to="/book/edit">Add Book</Link></button>
+                    </section>
+
                     <BookList
                     books={books}
                     onRemoveBook={onRemoveBook}
-                    onSelectBookId={onSelectBookId}
+                    // onSelectBookId={onSelectBookId}
                     />
                   </Fragment>
                 
