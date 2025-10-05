@@ -1,12 +1,16 @@
 import { bookService } from "../services/book.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
+import { debounce } from "../services/util.service.js"
+
+
 const { useNavigate, useParams } = ReactRouterDOM
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 
 
 export function BookEdit() {
     const [bookToEdit, setBookToEdit] = useState(bookService.getEmptyBook())
     const [isLoading, setIsLoading] = useState(false)
+    // const onSetEditDebounce = useRef(debounce(setBookToEdit, 300)).current
 
     const navigate = useNavigate()
     const { bookId } = useParams()
@@ -14,8 +18,10 @@ export function BookEdit() {
     console.log(bookToEdit)
 
     useEffect(() => {
+        // onSetEditDebounce(bookToEdit)
         if (bookId) loadBook()
-    }, [])
+    },)
+//  [bookToEdit])
 
 
     function loadBook() {
@@ -79,7 +85,7 @@ export function BookEdit() {
                 <input value={title} onChange={handleChange} name="title" id="title" type="text" />
 
                 <label htmlFor="price">Book Price</label>
-                <input value={listPrice.amount} onChange={handleChange} name="price" id="price" type="number" />
+                <input value={listPrice.amount} onChange={handleChange} name="price" id="price" type="number" min="0" />
 
 
                 <button disabled={!title}>Save</button>

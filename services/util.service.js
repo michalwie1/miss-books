@@ -58,3 +58,13 @@ function getMonthName(date) {
     ]
     return monthNames[date.getMonth()]
 }
+
+export function debounce(func, delay) {
+    let timeoutId
+    return (...args) => {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+            func(...args)
+        }, delay)
+    }
+}
