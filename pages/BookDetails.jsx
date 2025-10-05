@@ -1,5 +1,6 @@
 import { bookService } from "../services/book.service.js"
 import { LongTxt } from "../cmps/LongTxt.jsx"
+import { AddReview } from "../cmps/AddReview.jsx"
 
 const { useState, useEffect } = React
 const { useParams, useNavigate, Link } = ReactRouterDOM
@@ -16,7 +17,6 @@ export function BookDetails() {
     function loadBook() {
         bookService.get(params.bookId)
             .then(book => {
-                console.log('Book from service:', book)
                 setBook(book)
             })
             .catch(err => {
@@ -27,6 +27,22 @@ export function BookDetails() {
 
     function onBack() {
         navigate('/book')
+    }
+
+    function onRemoveReview(review) {
+        const reviewIdx = book.reviews.findIndex(bookReview => bookReview === review)
+        bookService.removeReview(book.id, reviewIdx)
+            .then(() => {
+                setBook(prevBook => ({
+                    ...prevBook,
+                    reviews: prevBook.reviews.filter(r => r !== review)
+            }))
+                showSuccessMsg('Book review removed successfully!')
+            })
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg('Cannot remove book review')
+            })
     }
 
     if (!book) return <div className="loader">Loading Details...</div>
@@ -61,8 +77,9 @@ export function BookDetails() {
             <p>Publish Date: {publishedDate()}</p>
             <p className={`price ${priceClass}`}>Book Price: {book.listPrice.amount} {book.listPrice.currencyCode}</p>
             <img src={book.thumbnail} alt="Book Image" />
-            <button onClick={onBack}>Back</button>
+            <button onClick={onBack}>Back</button>    
 
+            <AddReview book={book} onRemoveReview={onRemoveReview}/>
 
             {/* <button><Link to={`/book/${book.prevBookId}`}>Prev</Link></button>
             <button><Link to={`/book/${book.nextBookId}`}>Next</Link></button> */}

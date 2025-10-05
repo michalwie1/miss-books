@@ -25,7 +25,9 @@ export const bookService = {
     // getNextCarId,
     // getFilterBy,
     // setFilterBy,
-    getDefaultFilter
+    getDefaultFilter,
+    addReview,
+    removeReview
 }
 
 function query(filterBy = {}) {
@@ -83,6 +85,33 @@ function getEmptyBook(title = '', price = null) {
 
 function getDefaultFilter() {
     return { title: '', listPrice: '' }
+}
+
+function addReview(bookId, review){
+    return storageService.query(BOOK_KEY)
+        .then(books => {
+            // let book = books.find(book => book.id === bookId)
+            let bookIdx = books.findIndex(book => book.id === bookId)
+            let book = books[bookIdx]
+            book.reviews.push(review)
+            // book.reviews.push(review)
+            utilService.saveToStorage(BOOK_KEY, books)
+        })
+        .catch(err => {
+            console.log('err:', err)
+        })
+    
+}
+
+function removeReview(bookId, reviewIdx){
+    // return storageService.remove(BOOK_KEY, bookId)
+
+    return get(bookId)
+        .then(book => {
+            if (!book.reviews) book.reviews = []
+            book.reviews.splice(reviewIdx, 1)
+            return save(book)
+    })
 }
 
 // function getNextBookId(bookId) {
@@ -183,7 +212,8 @@ function _createBook() {
         amount: utilService.getRandomIntInclusive(80, 500),
         currencyCode: "EUR",
         isOnSale: Math.random() > 0.7
-      }
+      },
+      reviews: []
     }
 
 }
