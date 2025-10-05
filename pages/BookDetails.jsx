@@ -81,8 +81,8 @@ export function BookDetails() {
 
             <AddReview book={book} onRemoveReview={onRemoveReview}/>
 
-            {/* <button><Link to={`/book/${book.prevBookId}`}>Prev</Link></button>
-            <button><Link to={`/book/${book.nextBookId}`}>Next</Link></button> */}
+            <button><Link to={`/book/${book.prevBookId}`}>Prev</Link></button>
+            <button><Link to={`/book/${book.nextBookId}`}>Next</Link></button>
 
         </section>
     )

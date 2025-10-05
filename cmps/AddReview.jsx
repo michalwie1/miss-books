@@ -66,17 +66,23 @@ export function AddReview({ book, onRemoveReview }){
 
     return (
         <section className = "add-review">
-            
-            {book.reviews && 
-            book.reviews.map(review =>
-                <div className="book-reviews" key={book.id}>
-                    <h3>Book Reviews:</h3>
-                    <p>{review.fname}</p>
-                    <p>{review.rating}</p>
-                    <p>{review.readAt}</p>
-                    <button onClick={(ev) => onRemoveReview(review)}>X</button>
-                </div>
-                )}
+
+        {(!book.reviews || book.reviews.length === 0)
+        ? <p>No reviews yet...</p>
+        : (
+            <section className="book-reviews">
+                <h3>Book Reviews:</h3>
+                {book.reviews.map((review, idx) => (
+                    <div className="review" key={idx}>
+                        <p>{review.fname}</p>
+                        <p>{review.rating}</p>
+                        <p>{review.readAt}</p>
+                        <button onClick={() => onRemoveReview(idx)}>X</button>
+                    </div>
+                ))}
+            </section>
+            )
+        }
 
             <form onSubmit={onSubmitReview}>
                 <label htmlFor="fname">Full Name</label>
@@ -95,7 +101,7 @@ export function AddReview({ book, onRemoveReview }){
                 <label htmlFor="readAt">Read date</label>
                 <input onChange={handleChange} name="readAt" id="readAt" type="date" />
 
-                <button disabled={!isValid}>Submit</button>
+                <button disabled={!isValid}>Add a review</button>
             </form>
         </section>
     )
