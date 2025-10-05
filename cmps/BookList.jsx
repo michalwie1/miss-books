@@ -13,7 +13,7 @@ export function BookList({ books, onRemoveBook }) {
                         <button onClick={ev => onRemoveBook(book.id)}>Delete</button>
 
                         {/* <button onClick={() => onSelectBookId(book.id)} >Details</button> */}
-
+        
                         <button><Link to={`/book/${book.id}`}>Details</Link></button>
                         <button><Link to={`/book/edit/${book.id}`}>Edit</Link></button>
 

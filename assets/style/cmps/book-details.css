@@ -5,6 +5,7 @@
     background-color: var(--clr1bg);
     padding: 2em;
     border-radius: 10px;
+    margin-top: 2em;
 
     h2{
         text-transform: uppercase;

@@ -2,7 +2,7 @@ import { bookService } from "../services/book.service.js"
 import { LongTxt } from "../cmps/LongTxt.jsx"
 
 const { useState, useEffect } = React
-const { useParams, useNavigate,Link } = ReactRouterDOM
+const { useParams, useNavigate, Link } = ReactRouterDOM
 
 export function BookDetails() {
     const [book, setBook] = useState(null)
@@ -17,7 +17,7 @@ export function BookDetails() {
         bookService.get(params.bookId)
             .then(book => {
                 console.log('Book from service:', book)
-                book => setBook(book)
+                setBook(book)
             })
             .catch(err => {
                 console.log('err:', err)
@@ -62,6 +62,11 @@ export function BookDetails() {
             <p className={`price ${priceClass}`}>Book Price: {book.listPrice.amount} {book.listPrice.currencyCode}</p>
             <img src={book.thumbnail} alt="Book Image" />
             <button onClick={onBack}>Back</button>
+
+
+            {/* <button><Link to={`/book/${book.prevBookId}`}>Prev</Link></button>
+            <button><Link to={`/book/${book.nextBookId}`}>Next</Link></button> */}
+
         </section>
     )
 }
