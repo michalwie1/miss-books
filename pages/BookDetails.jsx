@@ -29,21 +29,6 @@ export function BookDetails() {
         navigate('/book')
     }
 
-    function onRemoveReview(review) {
-        const reviewIdx = book.reviews.findIndex(bookReview => bookReview === review)
-        bookService.removeReview(book.id, reviewIdx)
-            .then(() => {
-                setBook(prevBook => ({
-                    ...prevBook,
-                    reviews: prevBook.reviews.filter(r => r !== review)
-            }))
-                showSuccessMsg('Book review removed successfully!')
-            })
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Cannot remove book review')
-            })
-    }
 
     if (!book) return <div className="loader">Loading Details...</div>
 
@@ -79,7 +64,7 @@ export function BookDetails() {
             <img src={book.thumbnail} alt="Book Image" />
             <button onClick={onBack}>Back</button>    
 
-            <AddReview book={book} onRemoveReview={onRemoveReview}/>
+            <AddReview book={book} />
 
             <button><Link to={`/book/${book.prevBookId}`}>Prev</Link></button>
             <button><Link to={`/book/${book.nextBookId}`}>Next</Link></button>

@@ -2,19 +2,9 @@ import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
 const BOOK_KEY = 'books'
+// const gCache = utilService.loadFromStorage(CACHE_STORAGE_KEY) || {}
+// const CACHE_STORAGE_KEY = 'googleBooksCache'
 _createBooks()
-
-// {
-//  "id": "OXeMG8wNskc",
-//  "title": "metus hendrerit",
-//  "description": "placerat nisi sodales suscipit tellus",
-//  "thumbnail": "http://ca.org/books-photos/20.jpg",
-//  "listPrice": {
-//  "amount": 109,
-//  "currencyCode": "EUR",
-//  "isOnSale": false
-//  }
-//  }
 
 export const bookService = {
     query,
@@ -27,7 +17,9 @@ export const bookService = {
     // setFilterBy,
     getDefaultFilter,
     addReview,
-    removeReview
+    removeReview,
+    addGoogleBook,
+    // getGoogleBooks
 }
 
 function query(filterBy = {}) {
@@ -89,6 +81,7 @@ function getDefaultFilter() {
 }
 
 function addReview(bookId, review){
+    review.id = utilService.makeId()
     return storageService.query(BOOK_KEY)
         .then(books => {
             // let book = books.find(book => book.id === bookId)
@@ -101,19 +94,46 @@ function addReview(bookId, review){
         .catch(err => {
             console.log('err:', err)
         })
-    
 }
 
-function removeReview(bookId, reviewIdx){
-    // return storageService.remove(BOOK_KEY, bookId)
-
+function removeReview(bookId, reviewId){
     return get(bookId)
         .then(book => {
-            if (!book.reviews) book.reviews = []
-            book.reviews.splice(reviewIdx, 1)
+            book.reviews = book.reviews.filter((review) => review.id !== reviewId)
+            showSuccessMsg('Review removed successfully!')
             return save(book)
     })
+        .catch(err => {
+                console.log('err:', err)
+                showErrorMsg(`Cannot remove review - ${reviewId}`)
+    })       
 }
+
+function addGoogleBook(googleBook){
+    // return storageService.post(BOOK_KEY, googleBook, false)
+}
+
+// function getGoogleBooks(bookName){
+//     if (bookName === '') return Promise.resolve()
+//     const googleBooks = gCache[bookName]
+//     if (googleBooks) {
+//         console.log('data from storage...', googleBooks)
+//         return Promise.resolve(googleBooks)
+//     }
+
+//     const url = `https://www.googleapis.com/books/v1/volumes?printType=books&q=${bookName}`
+
+//     return axios.get(url)
+//         .then(res => {
+//             console.log({ res });
+//             const data = res.data.items
+//             console.log('data from network...', data)
+//             const books = _formatGoogleBooks(data)
+//             gCache[bookName] = books
+//             utilService.saveToStorage(CACHE_STORAGE_KEY, gCache)
+//             return books
+//         })
+// }
 
 // function getNextBookId(bookId) {
 //     return storageService.query(BOOK_KEY)

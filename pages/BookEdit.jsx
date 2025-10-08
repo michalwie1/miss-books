@@ -1,5 +1,6 @@
 import { bookService } from "../services/book.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
+import { BookAdd } from "../cmps/BookAdd.jsx"
 import { debounce } from "../services/util.service.js"
 
 
@@ -70,14 +71,13 @@ export function BookEdit() {
             })
     }
 
-
-
     const loadingClass = isLoading ? 'loading' : ''
     const { title, listPrice } = bookToEdit
     console.log(bookToEdit)
     console.log(listPrice.amount)
     return (
         <section className="book-edit">
+            <BookAdd />
             <h1>{bookId ? 'Edit' : 'Add'} Book</h1>
             <form className={loadingClass} onSubmit={onSaveBook}>
 

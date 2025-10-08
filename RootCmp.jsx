@@ -26,9 +26,9 @@ export function App() {
                         <Route path="/home" element={<Home />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/book" element={<BookIndex />} />
-                        <Route path="/book/:bookId" element={<BookDetails />} />
                         <Route path="/book/edit" element={<BookEdit />} /> {/* ADD */}
                         <Route path="/book/edit/:bookId" element={<BookEdit />} /> {/* EDIT */}
+                        <Route path="/book/:bookId" element={<BookDetails />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
             </main>

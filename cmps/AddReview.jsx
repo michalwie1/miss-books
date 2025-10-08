@@ -1,4 +1,5 @@
 import { bookService } from "../services/book.service.js"
+import { ReviewList } from "./ReviewList.jsx"
 // import { handleChange } from "../services/util.service.js"
 
 const { useState, useEffect } = React
@@ -9,8 +10,10 @@ export function AddReview({ book, onRemoveReview }){
     const [review, setReview] = useState({
         fname: '',
         rating: 0,
-        readAt: ''
+        readAt: '',
     })
+    const [reviewsList, setReviewsList] = useState([])
+
     
     // USE EFFECT SO THAT EVERY TIME THE REVIEW CHANGES, IT WILL RENDER ON THE HTML TOO:
 
@@ -48,40 +51,26 @@ export function AddReview({ book, onRemoveReview }){
     function onSubmitReview(ev) {
         ev.preventDefault()
         bookService.addReview(book.id,review)
+        setReviewsList(prevReviews => [...prevReviews, review])
         console.log('review',review)
+        
         setReview({ fname: '', rating: 0, readAt: '' })
     }
 
-
-    // function onRemoveReview(review){
-    //         let reviewIdx = book.reviews.findIndex(bookReview => bookReview === review)
-    //         book.reviews.splice(reviewIdx, 1)
-  
-    //     }
+    function onRemoveReview(reviewId){
+        bookService.removeReview(book.id, reviewId)  
+    }
 
     const {fname, rating, readAt} = review
-
     const isValid = fname && rating && readAt
 
 
     return (
         <section className = "add-review">
-
+        
         {(!book.reviews || book.reviews.length === 0)
         ? <p>No reviews yet...</p>
-        : (
-            <section className="book-reviews">
-                <h3>Book Reviews:</h3>
-                {book.reviews.map((review, idx) => (
-                    <div className="review" key={idx}>
-                        <p>{review.fname}</p>
-                        <p>{review.rating}</p>
-                        <p>{review.readAt}</p>
-                        <button onClick={() => onRemoveReview(idx)}>X</button>
-                    </div>
-                ))}
-            </section>
-            )
+        : <ReviewList book={book} onRemoveReview={onRemoveReview} />
         }
 
             <form onSubmit={onSubmitReview}>
@@ -91,11 +80,11 @@ export function AddReview({ book, onRemoveReview }){
                 <label htmlFor="rating">Rating</label>
                 <select onChange={handleChange} name="rating" id="rating" value={rating}>
                     <option value="">Select rating</option>
-                    <option value="1">⭐</option>
-                    <option value="2">⭐⭐</option>
-                    <option value="3">⭐⭐⭐</option>
-                    <option value="4">⭐⭐⭐⭐</option>
-                    <option value="5">⭐⭐⭐⭐⭐</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                 </select>
 
                 <label htmlFor="readAt">Read date</label>
