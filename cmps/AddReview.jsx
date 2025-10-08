@@ -70,7 +70,7 @@ export function AddReview({ book, onRemoveReview }){
         
         {(!book.reviews || book.reviews.length === 0)
         ? <p>No reviews yet...</p>
-        : <ReviewList book={book} onRemoveReview={onRemoveReview} />
+        : <ReviewList reviews={book.reviews} onRemoveReview={onRemoveReview} />
         }
 
             <form onSubmit={onSubmitReview}>

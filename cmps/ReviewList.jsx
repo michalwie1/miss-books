@@ -3,13 +3,13 @@ import { bookService } from "../services/book.service.js"
 
 const { useState } = React
 
-export function ReviewList({ book, onRemoveReview }){
+export function ReviewList({ reviews, onRemoveReview }){
 
 const stars = '⭐️'
     return (
             <section className="book-reviews">
                 <h3>Book Reviews:</h3>
-                {book.reviews.map((review) => (
+                {reviews.map((review) => (
                     <div className="review" key={review.id}>
                         <p>{review.fname}</p>
                         <p>{stars.repeat(+review.rating)}</p>

@@ -64,6 +64,7 @@ export function BookDetails() {
             <img src={book.thumbnail} alt="Book Image" />
             <button onClick={onBack}>Back</button>    
 
+            <button onClick={onBack}>Add Review</button>    
             <AddReview book={book} />
 
             <button><Link to={`/book/${book.prevBookId}`}>Prev</Link></button>

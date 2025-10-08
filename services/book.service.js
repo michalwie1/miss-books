@@ -19,7 +19,7 @@ export const bookService = {
     addReview,
     removeReview,
     addGoogleBook,
-    // getGoogleBooks
+    getGoogleBooks
 }
 
 function query(filterBy = {}) {
@@ -110,30 +110,35 @@ function removeReview(bookId, reviewId){
 }
 
 function addGoogleBook(googleBook){
-    // return storageService.post(BOOK_KEY, googleBook, false)
+    return storageService.post(BOOK_KEY, googleBook)
+        .then(book => {
+            save(book)
+            showSuccessMsg('Book added successfully!')
+            })
 }
 
-// function getGoogleBooks(bookName){
-//     if (bookName === '') return Promise.resolve()
-//     const googleBooks = gCache[bookName]
-//     if (googleBooks) {
-//         console.log('data from storage...', googleBooks)
-//         return Promise.resolve(googleBooks)
-//     }
+function getGoogleBooks(bookName){
+    if (bookName === '') return Promise.resolve()
+    // const googleBooks = gCache[bookName]
+    // if (googleBooks) {
+    //     console.log('data from storage...', googleBooks)
+    //     return Promise.resolve(googleBooks)
+    // }
 
-//     const url = `https://www.googleapis.com/books/v1/volumes?printType=books&q=${bookName}`
+    const url = `https://www.googleapis.com/books/v1/volumes?printType=books&q=${bookName}`
 
-//     return axios.get(url)
-//         .then(res => {
-//             console.log({ res });
-//             const data = res.data.items
-//             console.log('data from network...', data)
-//             const books = _formatGoogleBooks(data)
-//             gCache[bookName] = books
-//             utilService.saveToStorage(CACHE_STORAGE_KEY, gCache)
-//             return books
-//         })
-// }
+    return axios.get(url)
+        .then(res => {
+            // console.log({ res })
+            const data = res.data.items
+            // console.log('data from network...', data)
+            const books = _formatGoogleBooks(data)
+            console.log(books)
+            // gCache[bookName] = books
+            // utilService.saveToStorage(CACHE_STORAGE_KEY, gCache)
+            return books
+        })
+}
 
 // function getNextBookId(bookId) {
 //     return storageService.query(BOOK_KEY)
@@ -195,6 +200,26 @@ function addGoogleBook(googleBook){
 //   utilService.saveToStorage(BOOK_KEY, books)
 //   console.log('books', books)
 // }
+
+function _formatGoogleBooks(dataBooks){
+    console.log(dataBooks)
+    const books = []
+    dataBooks.map((book => {
+        const newBook = _createBook()
+        newBook.listPrice.amount = book.saleInfo.listPrice.amount
+        newBook.authors = book.volumeInfo.authors
+        newBook.categories = book.volumeInfo.categories
+        newBook.description = book.volumeInfo.description
+        newBook.language = book.volumeInfo.language
+        newBook.title = book.volumeInfo.title
+        newBook.publishedDate = book.volumeInfo.publishedDate
+        newBook.thumbnail = book.volumeInfo.imageLinks.thumbnail
+        newBook.pageCount = book.volumeInfo.pageCount
+        newBook.subtitle = book.volumeInfo.subtitle
+        books.push(newBook)
+    }))
+    return books
+}
 
 function _setNextPrevBookId(book) {
     return query().then((books) => {
