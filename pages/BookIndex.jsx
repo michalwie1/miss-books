@@ -5,15 +5,18 @@ import { BookFilter } from "../cmps/BookFilter.jsx"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect, Fragment } = React
-const { Link } = ReactRouterDOM
+const { Link, useSearchParams } = ReactRouterDOM
 
 export function BookIndex() {
+    const [searchParams, setSearchParams] = useSearchParams()
 
     const [books, setBooks] = useState([])
     const [selectedBookId, setSelectedBookId] = useState(null)
-    const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
+    // const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
+    const [filterBy, setFilterBy] = useState(bookService.getFilterFromParams(searchParams))
 
     useEffect(() => {
+        setSearchParams(filterBy)
         loadBooks()
     }, [filterBy])
 
@@ -43,15 +46,17 @@ export function BookIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...newFilterBy }))
     }
 
-    if (!books || !books.length) return <div className="loader">Loading...</div>
+    //if (!books || !books.length) return <div className="loader">Loading...</div>
     return (
         <section className="book-index main-layout">
             <h2>Books</h2>
 
-            {selectedBookId
-                ? <BookDetails bookId={selectedBookId} onBack={() => setSelectedBookId(null)} />
-                : <Fragment>
-                    <BookFilter onSetFilterBy={onSetFilterBy} defaultFilter={filterBy} />
+            <BookFilter onSetFilterBy={onSetFilterBy} defaultFilter={filterBy} />
+            {!books.length && <div className="loader">Loading...</div>}
+            {/* {selectedBookId */}
+                {/* ? <BookDetails bookId={selectedBookId} onBack={() => setSelectedBookId(null)} /> */}
+                {/* : */}
+                 <Fragment>
 
                     <section className="container">
                         <button className="edit-link"><Link to="/book/edit">Add Book</Link></button>
@@ -64,7 +69,7 @@ export function BookIndex() {
                     />
                   </Fragment>
                 
-            }
+            {/* } */}
 
         </section>
     )

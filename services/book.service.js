@@ -19,7 +19,8 @@ export const bookService = {
     addReview,
     removeReview,
     addGoogleBook,
-    getGoogleBooks
+    getGoogleBooks,
+    getFilterFromParams
 }
 
 function query(filterBy = {}) {
@@ -64,6 +65,7 @@ function getEmptyBook(title = '', price = null) {
 
    console.log('book to check', book)
     return book
+
 }
 
 // function getFilterBy() {
@@ -139,6 +141,16 @@ function getGoogleBooks(bookName){
             return books
         })
 }
+
+function getFilterFromParams(searchParams) {
+    const title = searchParams.get('title') || ''
+    const price = searchParams.get('price') || ''
+    return {
+        title,
+        price
+    }
+}
+
 
 // function getNextBookId(bookId) {
 //     return storageService.query(BOOK_KEY)
