@@ -1,6 +1,7 @@
 import { bookService } from "../services/book.service.js"
 import { LongTxt } from "../cmps/LongTxt.jsx"
 import { AddReview } from "../cmps/AddReview.jsx"
+import { Loader } from "../cmps/Loader.jsx"
 
 const { useState, useEffect } = React
 const { useParams, useNavigate, Link } = ReactRouterDOM
@@ -30,7 +31,7 @@ export function BookDetails() {
     }
 
 
-    if (!book) return <div className="loader">Loading Details...</div>
+    if (!book) return <Loader />
 
     function pageCountTxt(){
         if (book.pageCount > 500) return 'Serious Reading'

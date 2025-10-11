@@ -21,7 +21,7 @@ export function BookEdit() {
     useEffect(() => {
         // onSetEditDebounce(bookToEdit)
         if (bookId) loadBook()
-    },)
+    }, [])
 //  [bookToEdit])
 
 
@@ -73,8 +73,8 @@ export function BookEdit() {
 
     const loadingClass = isLoading ? 'loading' : ''
     const { title, listPrice } = bookToEdit
-    console.log(bookToEdit)
-    console.log(listPrice.amount)
+    // console.log(bookToEdit)
+    // console.log(listPrice.amount)
     return (
         <section className="book-edit">
             <BookAdd />

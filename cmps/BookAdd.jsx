@@ -1,6 +1,7 @@
 
 import { bookService } from "../services/book.service.js"
 import { debounce } from "../services/util.service.js"
+import { Loader } from "./Loader.jsx"
 
 const { useState, useEffect, useRef } = React
 
@@ -79,11 +80,12 @@ export function BookAdd(){
         //             })
     }
 
-    
 
     return (
     
         <section className="book-add">
+
+            {isLoading && <Loader />}
             <h1>Add book from google</h1>
 
             <input onChange={onSearch} placeholder="Book name..." name="bookAdd" id="bookAdd" type="text" />
